@@ -47,7 +47,7 @@ inline void myLog(int logLevel, char *fileName, int line, char *fmt, ...)
 
 	printf("%s: %s(%d): ", logString[logLevel], fileName, line);
 
-	va_start (argList, fmt);	
+	va_start (argList, fmt);
 	//loglog(fmt, argList);
 	vfprintf(stdout, fmt, argList);
 	va_end (argList);
@@ -58,7 +58,7 @@ inline void myLog(int logLevel, char *fileName, int line, char *fmt, ...)
 void initDistMatrix()
 {
 	int i, j;
-	
+
 	for (i = 0; i < gNoOfVertex; i++)
 	{
 		for (j = 0; j < gNoOfVertex; j++)
@@ -80,7 +80,7 @@ int copyFromAdjListToDist(AdjList *pstAdjList)
 {
 	int i;
 	AdjList *pstTmpList = NULL_PTR, *pstTmpList2 = NULL_PTR;
-	
+
 	if (NULL_PTR == pstAdjList)
 	{
 		myLog(ERROR, "Invalid Input!");
@@ -101,7 +101,7 @@ int copyFromAdjListToDist(AdjList *pstAdjList)
 
 		pstTmpList++;
 	}
-	
+
 	return OK;
 }
 
@@ -109,9 +109,9 @@ int copyFromAdjListToDist(AdjList *pstAdjList)
 void printDistMatrix()
 {
 	int i, j;
-	
+
 	myLog(DEBUG, "Printing Distance Matrix: ");
-	
+
 	printf("\nNodes");
 	for (i = 0; i < gNoOfVertex; i++)
 	{
@@ -120,9 +120,9 @@ void printDistMatrix()
 	printf("\n");
 	for (i = 0; i < gNoOfVertex; i++)
 	{
-		printf("\t------", i);
+		printf("\t%d------", i);
 	}
-	
+
 	for (i = 0; i < gNoOfVertex; i++)
 	{
 		printf("\n%d   |\t", i);
@@ -138,7 +138,7 @@ void printDistMatrix()
 			}
 		}
 	}
-	
+
 	printf("\n\n");
 }
 
@@ -146,9 +146,9 @@ void printDistMatrix()
 void printTimeMatrix(int scheme)
 {
 	int i, j;
-	
+
 	printf("\n\t\t\t\t--- %s ----\n", schemeString[scheme]);
-	
+
 	printf("\t");
 	for (j = 0; j < MAX_VALID_DENSITIES; j++)
 	{
@@ -170,29 +170,29 @@ void printCircularList(BinoHeap *pstPtr)
 {
 	BinoHeap *pstStart;
 	int i = 0;
-	
+
 	if (LDEBUG != gLogLevel)
 	{
 		return;
 	}
-	
+
 	pstStart = pstPtr;
-	
+
 	do
 	{
 		printf("[%d(%d) -> %d(%d)]", pstStart->vertex, pstStart->degree,
 			pstStart->next->vertex, pstStart->next->degree);
-		
+
 		pstStart = pstStart->next;
 		i++;
-		
+
 		if (i > gNoOfVertex)
 		{
 			printf("\n Infinite Loop!");
 			break;
 		}
 	}while(pstStart != pstPtr);
-	
+
 	printf("\n");
 }
 
@@ -201,20 +201,20 @@ int gI;
 void printHeapRec(BinoHeap *pstBinoRoot)
 {
 	BinoHeap *pstTmp;
-	
+
 	if (NULL_PTR == pstBinoRoot)
 	{
 		return;
 	}
-	
+
 	printf("{ ");
-	
+
 	pstTmp = pstBinoRoot;
-	
+
 	while (pstTmp->next != pstBinoRoot)
 	{
 		gI++;
-		
+
 		if (gI > gNoOfVertex)
 		{
 			return;
@@ -223,21 +223,21 @@ void printHeapRec(BinoHeap *pstBinoRoot)
 			(pstTmp->parent ? pstTmp->parent->vertex : (501)),
 			pstTmp->vertex, pstTmp->degree,
 			pstTmp->next->vertex, pstTmp->next->degree);
-			
+
 		gTestTV++;
-		
+
 		printHeapRec(pstTmp->child);
-		
-		pstTmp = pstTmp->next;		
+
+		pstTmp = pstTmp->next;
 	}
-	
+
 	printf("[(%d)%d(%d) %d(%d)] ",
 			(pstTmp->parent ? pstTmp->parent->vertex : (501)),
 			pstTmp->vertex, pstTmp->degree,
 			pstTmp->next->vertex, pstTmp->next->degree);
 	gTestTV++;
 	printHeapRec(pstTmp->child);
-		
+
 	printf("}");
 }
 
@@ -247,12 +247,12 @@ void printBinoHeap(BinoHeap *pstBinoRoot)
 	{
 		return;
 	}
-	
+
 	gI = 0;
 	gTestTV = 0;
-	
+
 	printHeapRec(pstBinoRoot);
-	
+
 	if (gTestTV != gTestEV)
 	{
 		if ((gTestTV - gTestEV) != 1)
@@ -266,27 +266,27 @@ void printBinoHeap(BinoHeap *pstBinoRoot)
 		printf("\nOK\nActual: [%d] Expected: [%d]",
 			gTestTV, gTestEV);
 	}
-	
+
 	printf("\n");
 }
 
 void printFiboHeapRec(FiboHeap *pstFiboRoot)
 {
 	FiboHeap *pstTmp;
-	
+
 	if (NULL_PTR == pstFiboRoot)
 	{
 		return;
 	}
-	
+
 	printf("{ ");
-	
+
 	pstTmp = pstFiboRoot;
-	
+
 	while (pstTmp->next != pstFiboRoot)
 	{
 		gI++;
-		
+
 		if (gI > gNoOfVertex)
 		{
 			return;
@@ -296,14 +296,14 @@ void printFiboHeapRec(FiboHeap *pstFiboRoot)
 			(pstTmp->parent ? pstTmp->parent->vertex : (501)),
 			pstTmp->vertex, pstTmp->degree,
 			pstTmp->next->vertex, pstTmp->next->degree);
-			
+
 		gTestTV++;
-		
+
 		printFiboHeapRec(pstTmp->child);
-		
-		pstTmp = pstTmp->next;		
+
+		pstTmp = pstTmp->next;
 	}
-	
+
 	printf("[%d(%d) (%d)%d(%d) %d(%d)] ",
 			pstTmp->prev->vertex, pstTmp->prev->degree,
 			(pstTmp->parent ? pstTmp->parent->vertex : (501)),
@@ -311,7 +311,7 @@ void printFiboHeapRec(FiboHeap *pstFiboRoot)
 			pstTmp->next->vertex, pstTmp->next->degree);
 	gTestTV++;
 	printFiboHeapRec(pstTmp->child);
-		
+
 	printf("}");
 }
 
@@ -321,12 +321,12 @@ void printFiboHeap(FiboHeap *pstFiboRoot)
 	{
 		return;
 	}
-	
+
 	gI = 0;
 	gTestTV = 0;
-	
+
 	printFiboHeapRec(pstFiboRoot);
-	
+
 	if (gTestTV != gTestEV)
 	{
 		if ((gTestTV - gTestEV) != 1)
@@ -340,6 +340,6 @@ void printFiboHeap(FiboHeap *pstFiboRoot)
 		printf("\nOK\nActual: [%d] Expected: [%d]",
 			gTestTV, gTestEV);
 	}
-	
+
 	printf("\n");
 }

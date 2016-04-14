@@ -10,7 +10,7 @@
 #include <time.h>
 #include "header.h"
 
-//Stores the number to vertices 
+//Stores the number to vertices
 extern int gNoOfVertex;
 //Stores the desity of graph in percentage
 extern int gGraphDensity;
@@ -32,7 +32,7 @@ int randomProc()
 {
 	AdjList *pstAdjList = NULL_PTR;
 	int i, j, k, timeMsec, totalMsec;
-	
+
 	/* Loop against all valid vertices and valid densities */
 	for (i = 0; i < MAX_VALID_VERTICES; i++)
 	{
@@ -55,10 +55,10 @@ int randomProc()
 			if (OK != buildRandomAdjList(pstAdjList))
 			{
 				myLog(ERROR, "buildAdjList failed!");
-				
+
 				/* deinit the adjacency list */
 				destroyAdjList(pstAdjList);
-				
+
 				return ERR;
 			}
 
@@ -66,39 +66,39 @@ int randomProc()
 			if (OK != connectGraph(pstAdjList))
 			{
 				myLog(ERROR, "connectGraph failed!");
-				
+
 				/* deinit the adjacency list */
 				destroyAdjList(pstAdjList);
-				
+
 				return ERR;
 			}
-			
+
 			/************************** Run Simple Scheme *****************************/
 			#if 1
-			
+			/************************* Run Binomial Scheme ****************************/
 			/* Run a scheme multiple times and get average */
 			myLog(INFO, "Running [%d] times", MAX_SCHEME_RUNS);
 			totalMsec = 0;
 			for (k = 0; k < MAX_SCHEME_RUNS; k++)
 			{
-				timeMsec = runSimpleSchemeForRandomMode(pstAdjList);
+				timeMsec = runBinaryScheme(pstAdjList);
 				if (INVALID_TIME == timeMsec)
 				{
-					myLog(ERROR, "runSimpleSchemeForRandomMode failed!");
-				
+					myLog(ERROR, "runBinaryScheme failed!");
+
 					/* deinit the adjacency list */
 					destroyAdjList(pstAdjList);
-				
+
 					return ERR;
 				}
-				
+
 				totalMsec += timeMsec;
 			}
-			
+
 			/* Save the time taken into a matrix */
-			gRandomModeOutput[SIMPLE_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
+			gRandomModeOutput[BINO_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
 			#endif
-			
+
 			#if 1
 			/************************* Run Binomial Scheme ****************************/
 			/* Run a scheme multiple times and get average */
@@ -110,23 +110,23 @@ int randomProc()
 				if (INVALID_TIME == timeMsec)
 				{
 					myLog(ERROR, "runBinoScheme failed!");
-				
+
 					/* deinit the adjacency list */
 					destroyAdjList(pstAdjList);
-				
+
 					return ERR;
 				}
-				
+
 				totalMsec += timeMsec;
 			}
-			
+
 			/* Save the time taken into a matrix */
 			gRandomModeOutput[BINO_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
 			#endif
-			
+
 			/************************** Run Fibonacci Scheme **************************/
 			#if 1
-			
+
 			/* Run a scheme multiple times and get average */
 			myLog(INFO, "Running [%d] times", MAX_SCHEME_RUNS);
 			totalMsec = 0;
@@ -136,16 +136,16 @@ int randomProc()
 				if (INVALID_TIME == timeMsec)
 				{
 					myLog(ERROR, "runFiboScheme failed!");
-				
+
 					/* deinit the adjacency list */
 					destroyAdjList(pstAdjList);
-				
+
 					return ERR;
 				}
-				
+
 				totalMsec += timeMsec;
 			}
-			
+
 			/* Save the time taken into a matrix */
 			gRandomModeOutput[FIBO_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
 			#endif
@@ -155,7 +155,7 @@ int randomProc()
 		}
 	}
 
-	/* Output the calculated matrix */	
+	/* Output the calculated matrix */
 	printTimeMatrix(SIMPLE_SCHEME);
 	printTimeMatrix(BINO_SCHEME);
 	printTimeMatrix(FIBO_SCHEME);

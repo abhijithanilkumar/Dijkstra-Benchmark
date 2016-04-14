@@ -95,11 +95,11 @@ int main(int argc, char *argv[])
 			{
 				cpFileName = argv[2];
 				myLog(INFO, "File name: [%s]\n", cpFileName);
-				
+
 				/* Make all mode into corresponding file mode */
 				gProgramMode += 3;
 			}
-			
+
 			/* Change the log level. Secret functionality :) Disabled currently */
 			if (4 == argc)
 			{
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 					&& ((argv[3][0] - '0') <= 2))
 				gLogLevel = (argv[3][0] - '0');
 			}
-			
+
 			break;
 		}
 		default:
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 			return PRG_ERR;
 		}
 	}
-	
+
 	/* Invoke respective functions */
 	switch (gProgramMode)
 	{
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 		}
 		case INTERACTIVE_SIMPLE_MODE:
 		{
-			retVal = simpleProc();
+			retVal = binaryProc();
 			break;
 		}
 		case INTERACTIVE_BINOMIAL_MODE:
@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 		}
 		case INTERACTIVE_SIMPLE_FILE_MODE:
 		{
-			retVal = simpleFileProc(cpFileName);
+			retVal = binaryFileProc(cpFileName);
 			break;
 		}
 		case INTERACTIVE_BINOMIAL_FILE_MODE:
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 			myLog(ERROR, "Invalid Mode: [%d]", gProgramMode);
 		}
 	}
-	
+
 	if (OK != retVal)
 	{
 		myLog(ERROR, "Proc function failed for mode: [%d]", gProgramMode);
