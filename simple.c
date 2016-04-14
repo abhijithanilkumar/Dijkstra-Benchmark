@@ -213,7 +213,7 @@ int binaryProc()
 	/* Run binomial scheme */
 	if (INVALID_TIME == runBinaryScheme(pstAdjList))
 	{
-		myLog(ERROR, "runBinoScheme failed!");
+		myLog(ERROR, "runBinaryScheme failed!");
 		return ERR;
 	}
 
@@ -289,7 +289,7 @@ int binaryFileProc(char *fileName)
 	/* Run binomial scheme */
 	if (INVALID_TIME == runBinaryScheme(pstAdjList))
 	{
-		myLog(ERROR, "runBinoScheme failed!");
+		myLog(ERROR, "runBinaryScheme failed!");
 		return ERR;
 	}
 
@@ -306,11 +306,11 @@ int runBinaryScheme(AdjList *pstAdjList)
 	clock_t startTime, time;
 	int src;
 
-	if (NULL_PTR == pstAdjList)
+	/*if (NULL_PTR == pstAdjList)
 	{
 		myLog(ERROR, "Invalid Input!");
 		return INVALID_TIME;
-	}
+	}*/
 
 	startTime = clock();
 

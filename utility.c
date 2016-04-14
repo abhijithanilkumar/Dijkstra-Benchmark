@@ -21,7 +21,7 @@ extern int gTestTV;
 extern int gTestEV;
 
 /* Functions for debugging */
-char *schemeString[TOTAL_SCHEMES] = {"SIMPLE SCHEME", "BINOMIAL SCHEME", "FIBONACCI SCHEME"};
+char *schemeString[TOTAL_SCHEMES] = {"BINARY SCHEME", "BINOMIAL SCHEME", "FIBONACCI SCHEME"};
 
 /* Functions for debugging */
 char *logString[TOTAL_LOG_LEVELS] = {"DEBUG", "INFORMATIONAL", "ERROR"};
@@ -120,7 +120,7 @@ void printDistMatrix()
 	printf("\n");
 	for (i = 0; i < gNoOfVertex; i++)
 	{
-		printf("\t%d------", i);
+		printf("\t------");
 	}
 
 	for (i = 0; i < gNoOfVertex; i++)

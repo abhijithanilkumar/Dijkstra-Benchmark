@@ -73,9 +73,8 @@ int randomProc()
 				return ERR;
 			}
 
-			/************************** Run Simple Scheme *****************************/
 			#if 1
-			/************************* Run Binomial Scheme ****************************/
+			/************************* Run Binary Scheme ****************************/
 			/* Run a scheme multiple times and get average */
 			myLog(INFO, "Running [%d] times", MAX_SCHEME_RUNS);
 			totalMsec = 0;
@@ -96,7 +95,7 @@ int randomProc()
 			}
 
 			/* Save the time taken into a matrix */
-			gRandomModeOutput[BINO_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
+			gRandomModeOutput[BINARY_SCHEME][i][j] = (totalMsec/MAX_SCHEME_RUNS);
 			#endif
 
 			#if 1
@@ -156,7 +155,7 @@ int randomProc()
 	}
 
 	/* Output the calculated matrix */
-	printTimeMatrix(SIMPLE_SCHEME);
+	printTimeMatrix(BINARY_SCHEME);
 	printTimeMatrix(BINO_SCHEME);
 	printTimeMatrix(FIBO_SCHEME);
 

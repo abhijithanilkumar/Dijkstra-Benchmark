@@ -7,7 +7,7 @@
 /***************************************************************************************************/
 
 #ifndef __HEADER__
-#define __HEADER__ 
+#define __HEADER__
 
 #define TRUE 1
 #define FALSE 0
@@ -37,7 +37,7 @@
 
 #define MAX_VALID_VERTICES 4
 #define MAX_VALID_DENSITIES 10
-#define SIMPLE_SCHEME 0
+#define BINARY_SCHEME 0
 #define BINO_SCHEME 1
 #define FIBO_SCHEME 2
 #define TOTAL_SCHEMES 3
