@@ -130,7 +130,7 @@ void printDistMatrix()
 		{
 			if (INFINITY == dist[i][j])
 			{
-				printf("INF\t");
+				printf("-\t");
 			}
 			else
 			{
